@@ -14,18 +14,23 @@
 
 <body>
     <div class="container">
+        {{api}}
 
         <div class="row justify-content-center">
             <div class="col-md-8 text-center">
                 <img src="{% static 'images/Logo.png'%}" class=" img-responsive logo mb-5 mt-5" />
-                <form>
+                <form method="post">
+                    {% csrf_token %}
                     <div class="input-group input-group-lg mb-5">
                         <input type="text" name="query" class="form-control inputstyle"
                             placeholder="search for calories in your food..." required>
                         <button class="btn whoop" type="submit" id="button-addon2">Find calories</button>
                     </div>
                 </form>
+                {%if api%}
+                {%if api == "oops! There was an error"%}
                 <div class="alert alert-warning"> Oh no! something went wrong.Please try again in sometime. </div>
+                {%else%}
                 <h1> Granola has a total of <strong> 100 Calories</strong>
                     <img src="{% static 'images/shocked.png'%}" class="img-responsive" />
                 </h1>
@@ -102,6 +107,8 @@
                         </div>
                     </div>
                 </div>
+                {%endif%}
+                {%endif%}
             </div>
 </body>
 
