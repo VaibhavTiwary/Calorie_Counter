@@ -7,6 +7,7 @@ def home(request):
     import json
     import requests
 
+
     if request.method == "POST":
         query = request.POST["query"]
         api_url = "https://api.api-ninjas.com/v1/nutrition?query="

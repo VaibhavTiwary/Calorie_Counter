@@ -68,7 +68,7 @@
                                 <li>Saturated fat: <span class="float-end">{{api.0.fat_saturated_g}}</span></li>
                                 <li>Total Fat: <span class="float-end">{{api.0.fat_total_g}}</span></li>
                                 <li>Fiber Content: <span class="float-end">{{api.0.fiber_g}}</span></li>
-                                <li>Potassium <span class="float-end">{{api.0.potassium_mg}}</span></li>
+                                <li>Potassium: <span class="float-end">{{api.0.potassium_mg}}</span></li>
                                 <li>Protein: <span class="float-end">{{api.0.protein_g}}<span></li>
                                 <li>Sodium:<span class="float-end">{{api.0.sodium_mg}}</span></li>
                                 <li>Sugar: <span class="float-end">{{api.0.sugar_g}}</span></li>
@@ -83,7 +83,7 @@
                                 <div class="flex-grow-1 ms-3">
                                     <h5> Jog </h5>
                                     <p>you will have to jog for <strong>
-                                            {{api.0.calories | div:229 | mul:60 | floatformat:0}}</strong> Minutes</p>
+                                            {{api.0.calories | div:389 | mul:60 | floatformat:0}}</strong> Minutes</p>
                                 </div>
                             </div>
                             <div class="d-flex align-items-center mb-5">
@@ -113,15 +113,56 @@
                                 <div class="flex-grow-1 ms-1">
                                     <h5> Go for a Brisk Walk </h5>
                                     <p>you will have to brisk walk for <strong>
-                                            {{api.0.calories | div:294 | mul:60 | floatformat:0}} </strong> Minutes</p>
+                                            {{api.0.calories | div:234 | mul:60 | floatformat:0}} </strong> Minutes</p>
                                 </div>
                             </div>
+                        </div>
+                        <div>
+                            <canvas id="myChart" width="400" height="400"></canvas>
                         </div>
                     </div>
                 </div>
                 {%endif%}
                 {%endif%}
             </div>
+            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+            <script>
+                const ctx = document.getElementById('myChart');
+
+                new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Carbohydrates', 'Cholesterol', 'Saturated fat', 'Total Fat', 'Fiber Content', 'Potassium', 'Protein', 'Sodium', 'Sugar'],
+                        datasets: [{
+                            label: 'Nutritional values of {{api.0.name | capfirst}}',
+                            data: [
+                                {{ api.0.carbohydrates_total_g }},
+                        {{ api.0.cholesterol_mg }},
+                        {{ api.0.fat_saturated_g }},
+                    {{ api.0.fat_total_g }},
+                    {{ api.0.fiber_g }},
+                    {{ api.0.potassium_mg }},
+                    {{ api.0.protein_g }},
+                    {{ api.0.sodium_mg }},
+                    {{ api.0.sugar_g }},
+
+
+                        ],
+                    borderWidth: 1
+                }]
+                },
+                    options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+                });
+            </script>
 </body>
 
 </html>
